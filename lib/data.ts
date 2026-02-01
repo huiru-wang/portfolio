@@ -9,7 +9,7 @@ export const personalInfo = {
   email: "huiru-wang@outlook.com",
   phone: "(+86) 15981944319",
   website: "robinverse.me",
-  summary: "Experienced Backend Developer specializing in high-concurrency distributed systems, SaaS architecture, and financial consistency verification. Proven track record at Alibaba (DingTalk) and Huawei."
+  summary: "The developer has extensive experience in server-side development, including high-concurrency distributed systems and SaaS architecture design and development. They are currently learning and practicing large-scale model agent design and development."
 };
 
 export const experiences: Experience[] = [
@@ -120,7 +120,7 @@ export const education = [
 const personalInfoZh = {
   ...personalInfo,
   title: "资深后端开发工程师",
-  summary: "拥有丰富经验的后端开发者，专注于高并发分布式系统、SaaS 架构设计及资金一致性校验。在阿里巴巴（钉钉）与华为拥有经证实的实战业绩。"
+  summary: "拥有丰富经验的服务端开发者，有高并发分布式系统、SaaS架构设计开发经验，正在学习与实践大模型Agent设计与开发。"
 };
 
 const experiencesZh: Experience[] = [
@@ -296,8 +296,8 @@ export const i18nData: { en: UIContent; zh: UIContent } = {
         education_footer: "Designed with Neobrutalism."
       },
       chat: {
-        greeting: "你好！我是王荟儒的 AI 助手。你可以问我关于他在阿里和华为的项目经验、技术栈等问题。",
-        button_label: "AI 对话",
+        greeting: "你好！我是王荟儒的 AI 助手。你可以问我关于他的项目经验、项目细节、技术栈等问题。",
+        button_label: "AI 助手",
         placeholder: "询问项目细节、技术栈...",
         thinking: "思考中...",
         disclaimer: "AI 基于简历和文档生成回答。",

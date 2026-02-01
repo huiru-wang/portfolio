@@ -1,6 +1,9 @@
 ---
+project_id: dingtalk-roster
 title: 钉钉智能人事 - 花名册服务重构
 description: 由于历史原因和前期的产品快速迭代，人事业务中最核心的人事档案模块，代码开始变得越来越腐化，逐渐暴露出各种问题：1. 新人使用、接手、迭代的成本越来越高；2. 代码架构不合理，难以支撑更复杂的产品逻辑。这是这个人事档案重构项目开启的一个背景。
+tech_stack: [Java, MySQL, SpringBoot, MySQL, Redis, RocketMQ]
+role: [核心开发]
 ---
 
 # 1.重构背景及目标

@@ -1,6 +1,9 @@
 ---
+project_id: dingtalk-esign
 title: 钉钉智能人事 - 电子签
 description: 电子签署能力在人事SaaS领域的商业价值不仅体现在效率提升和成本优化上，更通过法律合规、数据智能化、生态协同及可持续发展等维度，这是一个智能化的HR Saas产品的必备能力，也是商业化、增强产品力的很好的一个功能模块。同时人事业务本身就是电子签署的最大的应用场景，人员流动、合同管理都需要高效的电子签署来支持。
+tech_stack: [Java, MySQL, SpringBoot, MySQL, Redis, RocketMQ]
+role: [项目负责任， 核心开发]
 ---
 
 

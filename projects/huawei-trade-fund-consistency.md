@@ -1,6 +1,9 @@
 ---
+project_id: huawei-trade-fund-consistency
 title: 华为交易中台 - 资金一致性核对
 description: BCP服务是专门针对交易系统的一个旁路校验服务；通过交易链路中产生的日志，进行关联核对关键信息，保证每次交易链路的资金一致性；
+tech_stack: [Java, MySQL, SpringBoot, MySQL, Redis, Kafka, Flink]
+role: [核心开发]
 ---
 
 # 1. 项目背景
