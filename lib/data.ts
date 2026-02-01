@@ -117,13 +117,13 @@ export const education = [
 
 // ================= Chinese Data =================
 
-const personalInfoZh = {
+export const personalInfoZh = {
   ...personalInfo,
   title: "资深后端开发工程师",
   summary: "拥有丰富经验的服务端开发者，有高并发分布式系统、SaaS架构设计开发经验，正在学习与实践大模型Agent设计与开发。"
 };
 
-const experiencesZh: Experience[] = [
+export const experiencesZh: Experience[] = [
   {
     company: "阿里巴巴 - 钉钉 (DingTalk)",
     role: "后端开发",
@@ -141,7 +141,7 @@ const experiencesZh: Experience[] = [
   }
 ];
 
-const projectsZh: Project[] = [
+export const projectsZh: Project[] = [
   {
     id: "dingtalk-ai-training",
     title: "钉钉智能人事 - AI培训Agent",
@@ -198,7 +198,7 @@ const projectsZh: Project[] = [
   }
 ];
 
-const skillsZh: SkillCategory[] = [
+export const skillsZh: SkillCategory[] = [
   {
     name: "分布式系统",
     skills: ["微服务架构", "系统稳定性", "SLA 管理", "Java/Spring 生态"]
@@ -213,7 +213,7 @@ const skillsZh: SkillCategory[] = [
   }
 ];
 
-const educationZh = [
+export const educationZh = [
   {
     school: "南京理工大学",
     degree: "硕士 - 控制工程",
@@ -285,7 +285,7 @@ export const i18nData: { en: UIContent; zh: UIContent } = {
         role_label: "当前职位",
         stack_label: "cat 工作经历.log",
         status_label: "当前状态",
-        open_to_connect: "求职/交流中"
+        open_to_connect: "阿里巴巴在职"
       },
       sections: {
         projects_title: "项目经历",

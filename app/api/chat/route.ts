@@ -1,21 +1,22 @@
 import { NextResponse } from 'next/server';
 import { streamAIResponse } from '@/lib/qwen';
+import { ChatMessage } from '@/lib/types';
 
 const encoder = new TextEncoder();
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { message } = body;
-
-    if (!message) {
-      return NextResponse.json({ error: 'Message is required' }, { status: 400 });
+    const { messages } = body as { messages: ChatMessage[] };
+    if (!Array.isArray(messages) || messages.length === 0) {
+      return NextResponse.json({ error: 'messages array is required' }, { status: 400 });
     }
+    const lastFive = messages.slice(-5);
 
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of streamAIResponse(message)) {
+          for await (const chunk of streamAIResponse(lastFive)) {
             controller.enqueue(encoder.encode(chunk));
           }
         } catch (err) {

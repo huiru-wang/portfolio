@@ -45,6 +45,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ language, isOpen, setIsOpen }) 
     if (!inputValue.trim() || isLoading) return;
 
     const userMsg: ChatMessage = { role: 'user', content: inputValue };
+    const historyToSend: ChatMessage[] = [...messages, userMsg].slice(-5);
     setMessages(prev => [...prev, userMsg]);
     setInputValue('');
     setIsLoading(true);
@@ -54,7 +55,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ language, isOpen, setIsOpen }) 
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMsg.content }),
+        body: JSON.stringify({ messages: historyToSend }),
       });
 
       if (!res.ok || !res.body) {
@@ -109,7 +110,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({ language, isOpen, setIsOpen }) 
       )}
 
       {/* Slide-out Panel */}
-      <div className={`fixed top-0 right-0 h-full w-full md:w-[400px] bg-white border-l-4 border-black z-40 transform transition-transform duration-300 ease-in-out shadow-[-10px_0_15px_rgba(0,0,0,0.1)] ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed top-0 right-0 h-full w-full md:w-[600px] bg-white border-l-4 border-black z-40 transform transition-transform duration-300 ease-in-out shadow-[-10px_0_15px_rgba(0,0,0,0.1)] ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full">
           
           {/* Header */}
