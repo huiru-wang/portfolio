@@ -37,7 +37,24 @@ const markdownToHtml = (md: string) => {
   s = s.replace(/`([^`]+)`/g, (_m, code) => `<code class="inline-block font-mono text-xs bg-retro-bg border border-black px-1 py-0.5">${String(code).replace(/</g,'&lt;').replace(/>/g,'&gt;')}</code>`);
   s = s.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img alt="$1" src="$2" class="border-2 border-black shadow-retro my-4 max-w-full cursor-zoom-in" />');
   s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer" class="underline">$1</a>');
-  return s;
+  const codeBlocks: string[] = [];
+  s = s.replace(/<pre[\s\S]*?<\/pre>/g, (m) => {
+    const idx = codeBlocks.push(m) - 1;
+    return `__CODE_BLOCK_${idx}__`;
+  });
+  const parts = s.split(/\n{2,}/);
+  let html = '';
+  for (const part of parts) {
+    const p = part.trim();
+    if (p === '') continue;
+    if (/^<\s*(h\d|pre|img|ul|ol|blockquote)/.test(p)) {
+      html += p;
+    } else {
+      html += `<p class="mb-3">${p.replace(/\n/g, '<br/>')}</p>`;
+    }
+  }
+  html = html.replace(/__CODE_BLOCK_(\d+)__/g, (_m, i) => codeBlocks[Number(i)]);
+  return html;
 };
 
 const MarkdownArticle: React.FC<MarkdownArticleProps> = ({ content }) => {
