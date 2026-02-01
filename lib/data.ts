@@ -201,7 +201,7 @@ export const projectsZh: Project[] = [
 export const skillsZh: SkillCategory[] = [
   {
     name: "分布式系统",
-    skills: ["微服务架构", "系统稳定性", "SLA 管理", "Java/Spring 生态"]
+    skills: ["微服务架构", "系统稳定性", "Java/Spring 生态"]
   },
   {
     name: "数据库 & 存储",
@@ -307,85 +307,3 @@ export const i18nData: { en: UIContent; zh: UIContent } = {
   }
 };
 
-// ================= Simulated File System (Markdown Docs) =================
-// Note: We keep technical docs in English for AI Context simplicity, or standard technical documentation.
-
-export const projectDocs: MarkdownFile[] = [
-  {
-    filename: "dingtalk-esign.md",
-    content: `---
-title: DingTalk E-signature Platform
-project_id: dingtalk-esign
-tech_stack: [Java, Spring Boot, MySQL, RocketMQ]
-role: Lead Architect
----
-
-## Technical Architecture
-The E-signature platform was designed as a multi-tenant SaaS module. 
-
-### Key Challenges
-1. **Tenant Isolation:** ensuring data security between different corporate tenants.
-2. **Legal Compliance:** Electronic signatures must meet legal standards.
-3. **Integration:** Seamlessly integrating with existing HR flows.
-
-### Implementation Details
-- **Module Separation:** Decoupled contract templates, legal entity management, and signing logic into independent modules.
-- **Workflow Engine:** Implemented a state machine to handle the complex lifecycle of a contract (Draft -> Sending -> Signing -> Completed/Revoked).
-- **Storage:** Used OSS for PDF storage with encrypted links.
-`
-  },
-  {
-    filename: "roster-refactor.md",
-    content: `---
-title: Roster Service Refactoring
-project_id: dingtalk-roster
-tech_stack: [Java, Design Patterns]
-focus: Performance, Maintainability
----
-
-## Refactoring Strategy
-
-### Problem
-The legacy code suffered from logic coupling due to years of patching, making it hard for new hires to onboard and causing high read/write amplification.
-
-### Solution
-1. **Design Patterns:**
-   - **Template Method:** Defined the skeleton of data processing operations.
-   - **Chain of Responsibility:** Handled dynamic validation rules for employee data fields.
-   
-2. **Performance:**
-   - Reduced DB queries by aggregating reads.
-   - Optimized RT (Response Time) by 30%.
-
-3. **Verification:**
-   - Implemented a "Shadow Mode" (Dual Run) where old and new logic ran in parallel. 
-   - A reconciliation job compared results to ensure 100% consistency before full switch-over.
-`
-  },
-  {
-    filename: "consistency-check.md",
-    content: `---
-title: Fund Consistency Verification Service
-project_id: huawei-consistency
-tech_stack: [Flink, Redis, Kafka, DDD]
-scale: 6 Million+ tasks/day
----
-
-## BCP (Business Continuity Plan) Verification
-
-### Architecture
-This is a side-car service that does not block the main transaction path.
-
-1. **Data Ingestion:** Transaction logs are consumed from Kafka.
-2. **Data Cleaning:** Flink jobs clean and standardize the data.
-3. **Verification Logic:**
-   - Uses a distributed task scheduler (DB-based) to trigger checks.
-   - Fetches current state from Redis and compares it with the transaction log.
-   - Alerts triggered via internal IM if a mismatch is found (e.g., money deducted but status not updated).
-
-### Key Metrics
-- Supported 600w+ daily reconciliation tasks.
-- Achieved near real-time detection of financial discrepancies.
-`
-  }
-];
