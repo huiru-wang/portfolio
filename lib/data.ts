@@ -181,7 +181,7 @@ export const projectsZh: Project[] = [
   {
     id: "huawei-trade-fund-consistency",
     title: "华为交易中台 - 资金一致性核对",
-    company: "华为 - ",
+    company: "华为 - 云服务 (交易中台)",
     role: "开发人员",
     period: "2022.07 - 2022.12",
     summary: "构建旁路核对服务，利用 Flink、Kafka 和 Redis 处理每日 600万+ 笔核对任务，保障资金数据完整性。",
