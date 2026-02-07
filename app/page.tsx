@@ -41,6 +41,7 @@ export default function Home() {
 
   const [articleOpen, setArticleOpen] = useState(false);
   const [articleId, setArticleId] = useState<string | null>(null);
+  const [articleTitle, setArticleTitle] = useState<string | null>(null);
   const [articleContent, setArticleContent] = useState<string>('');
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
@@ -55,14 +56,17 @@ export default function Home() {
 
   const openArticle = async (id: string) => {
     setArticleId(id);
+    setArticleTitle(null);
     try {
       const res = await fetch(`/api/projects/${id}`);
       if (!res.ok) throw new Error('Not found');
       const data = await res.json();
       setArticleContent(data.content || '');
+      setArticleTitle(data.title ?? id);
       setArticleOpen(true);
     } catch (e) {
       setArticleContent('');
+      setArticleTitle(id);
       setArticleOpen(true);
     }
   };
@@ -300,7 +304,7 @@ export default function Home() {
         <div className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4" onClick={() => setArticleOpen(false)}>
           <div className="bg-white border-2 border-black shadow-[12px_12px_0px_0px_#000] max-w-3xl w-full max-h-[80vh] overflow-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-between items-center px-4 py-2 border-b-2 border-black bg-retro-bg">
-              <div className="font-mono text-xs">{articleId}</div>
+              <div className="font-bold text-lg">{articleTitle ?? articleId}</div>
               <button className="border-2 border-black px-2 py-1 bg-black text-white font-bold" onClick={() => setArticleOpen(false)}>CLOSE</button>
             </div>
             <MarkdownArticle content={articleContent} />

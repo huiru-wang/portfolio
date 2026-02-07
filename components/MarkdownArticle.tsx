@@ -47,8 +47,12 @@ const markdownToHtml = (md: string) => {
   for (const part of parts) {
     const p = part.trim();
     if (p === '') continue;
-    if (/^<\s*(h\d|pre|img|ul|ol|blockquote)/.test(p)) {
+    if (/^<\s*(h\d|pre|img|ul|ol|blockquote|table)/.test(p)) {
       html += p;
+    } else if (isListBlock(p)) {
+      html += listBlockToHtml(p);
+    } else if (isTableBlock(p)) {
+      html += tableBlockToHtml(p);
     } else {
       html += `<p class="mb-3">${p.replace(/\n/g, '<br/>')}</p>`;
     }
@@ -56,6 +60,63 @@ const markdownToHtml = (md: string) => {
   html = html.replace(/__CODE_BLOCK_(\d+)__/g, (_m, i) => codeBlocks[Number(i)]);
   return html;
 };
+
+function isListBlock(block: string): boolean {
+  const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
+  if (lines.length === 0) return false;
+  return lines.every((line) => /^\s*[-*]\s+/.test(line) || /^\s*\d+\.\s+/.test(line));
+}
+
+function listBlockToHtml(block: string): string {
+  const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
+  const isOrdered = lines.length > 0 && /^\s*\d+\.\s+/.test(lines[0]);
+  const tag = isOrdered ? 'ol' : 'ul';
+  const items = lines.map((line) => {
+    const content = line.replace(/^\s*[-*]\s+/, '').replace(/^\s*\d+\.\s+/, '');
+    return `<li class="mb-1">${content}</li>`;
+  });
+  return `<${tag} class="list-disc list-inside mb-3 ${isOrdered ? 'list-decimal' : ''}">${items.join('')}</${tag}>`;
+}
+
+function isTableBlock(block: string): boolean {
+  const lines = block.split('\n').filter((l) => l.trim());
+  if (lines.length < 2) return false;
+  const hasSeparator = lines.some((l) => /^\s*\|([\-:\s]+\|)+\s*$/.test(l.trim()));
+  const hasPipes = lines.every((l) => l.includes('|'));
+  return hasPipes && hasSeparator;
+}
+
+function tableBlockToHtml(block: string): string {
+  const lines = block.split('\n').map((l) => l.trim()).filter(Boolean);
+  const separatorIndex = lines.findIndex((l) => /^\s*\|([\-:\s]+\|)+\s*$/.test(l));
+  if (separatorIndex < 0) return `<p class="mb-3">${block.replace(/\n/g, '<br/>')}</p>`;
+  const headerCells = parseTableRow(lines[0]);
+  const bodyRows = lines.slice(separatorIndex + 1);
+  let out = '<div class="overflow-x-auto mb-4"><table class="border-2 border-black w-full border-collapse">';
+  out += '<thead><tr class="bg-retro-bg">';
+  for (const cell of headerCells) {
+    out += `<th class="border border-black px-3 py-2 text-left font-bold">${cell}</th>`;
+  }
+  out += '</tr></thead><tbody>';
+  for (const row of bodyRows) {
+    const cells = parseTableRow(row);
+    if (cells.length === 0) continue;
+    out += '<tr>';
+    for (const cell of cells) {
+      out += `<td class="border border-black px-3 py-2">${cell}</td>`;
+    }
+    out += '</tr>';
+  }
+  out += '</tbody></table></div>';
+  return out;
+}
+
+function parseTableRow(line: string): string[] {
+  const trimmed = line.trim();
+  if (!trimmed.startsWith('|')) return [];
+  const parts = trimmed.slice(1).split('|').map((p) => p.trim());
+  return parts;
+}
 
 const MarkdownArticle: React.FC<MarkdownArticleProps> = ({ content }) => {
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);

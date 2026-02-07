@@ -162,7 +162,7 @@ export const projectsZh: Project[] = [
   },
   {
     id: "dingtalk-roster",
-    title: "钉钉智能人事 - 花名册核心重构",
+    title: "钉钉智能人事 - 花名册服务重构",
     company: "阿里巴巴 - 钉钉 (DingTalk)",
     role: "核心开发",
     period: "2024.11 - 2025.02",
@@ -171,7 +171,7 @@ export const projectsZh: Project[] = [
   },
   {
     id: "dingtalk-esign",
-    title: "钉钉智能人事 - 电子签平台",
+    title: "钉钉智能人事 - 电子签",
     company: "阿里巴巴 - 钉钉 (DingTalk)",
     role: "项目负责人",
     period: "2024.03 - 2024.06",
