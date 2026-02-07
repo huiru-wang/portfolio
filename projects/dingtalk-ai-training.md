@@ -113,7 +113,7 @@ role: [项目负责任， 核心开发]
 
 ## 会话执行过程
 
-![交互流程](images/project-multi-agent-case.png)
+![交互流程](/images/project-multi-agent-case.png)
 
 ## 消息交互设计
 
